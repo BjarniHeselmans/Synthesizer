@@ -82,3 +82,85 @@ Bij elke effectkeuze wordt een bericht uitgeprint via xil_printf ter indicatie w
 
 #### Samenvatting
 *Timer_ISR* handelt de realtime audio verwerking af tijdens elke timer interrupt, leest input, voert effecten uit op het audio signaal afhankelijk van de knopstatus, en schrijft de output terug. Hierdoor ontstaat een interactieve synthesizer met verschillende geluidseffecten.
+
+# Uitleg van Audio-Effect Functies
+
+---
+
+## 1. PacManSoundEffect
+
+```c
+void PacManSoundEffect(u32* inputBufferL, u32* inputBufferR, u32* outputBufferL, u32* outputBufferR, int bufferSize)
+```
+### Wat doet deze functie?
+- Genereert een uniek "Pac-Man" geluidssignaal.
+- Combineert twee sinusgolven met verschillende frequenties (600 Hz en 900 Hz).
+- Voor elk sample wordt de som van de sinussen berekend, geschaald, en naar linker- en rechter outputbuffer geschreven.
+- De fases van de sinussen worden per sample bijgewerkt voor een continu geluid.
+
+### Parameters
+- inputBufferL, inputBufferR: worden niet gebruikt in deze functie.
+- outputBufferL, outputBufferR: buffers waarin het geluid wordt geplaatst.
+- bufferSize: aantal samples.
+
+## 2. ChorusEffect
+```c
+void ChorusEffect(u32* inputBufferL, u32* inputBufferR, u32* outputBufferL, u32* outputBufferR, int bufferSize, float rate, float depth, float delayTime)
+```
+### Wat doet deze functie?
+- Voegt een chorus-effect toe dat het geluid voller maakt.
+- Maakt gebruik van een delay-buffer met variërende vertragingstijd gestuurd door een LFO (sinusfunctie).
+- Vertraagde samples worden gemixt met de originele input voor een breed, rijk geluid.
+
+### Parameters
+- inputBufferL, inputBufferR: input samples.
+- outputBufferL, outputBufferR: output samples met chorus-effect.
+- bufferSize: aantal samples.
+- rate: frequentie van de LFO.
+- depth: amplitude van de LFO (hoeveel de delay varieert).
+- delayTime: basisvertraging (in deze code niet actief gebruikt).
+
+## 3. SpacePhaserEffect
+```c
+void SpacePhaserEffect(u32* inputBufferL, u32* inputBufferR, u32* outputBufferL, u32* outputBufferR, int bufferSize, float rate, float depth)
+```
+### Wat doet deze functie?
+- Voegt een phaser-effect toe, waarbij de amplitude van het signaal wordt gemoduleerd.
+- Het linker- en rechterkanaal hebben fases die 180 graden uit fase zijn, wat een stereo-effect creëert.
+- De amplitude wordt gemoduleerd door een sinus-LFO, waardoor het geluid “beweegt”.
+
+### Parameters
+- inputBufferL, inputBufferR: input audio samples.
+- outputBufferL, outputBufferR: output samples met phaser-effect.
+- bufferSize: aantal samples.
+- rate: snelheid van de modulatie.
+- depth: sterkte van het effect.
+
+## 4. GeneratePianoTone
+```c
+void GeneratePianoTone(u32* outputBufferL, u32* outputBufferR, int bufferSize)
+```
+### Wat doet deze functie?
+- Genereert een simpele pianoton als een sinusgolf.
+- Per sample wordt een sinuswaarde berekend en omgezet naar 32-bit unsigned PCM-waarde.
+- Plaatst het signaal in beide (links en rechts) outputbuffers.
+
+### Parameters
+- outputBufferL, outputBufferR: buffers voor het pianogeluid.
+- bufferSize: aantal samples.
+
+## 5. TremoloEffect
+```c
+void TremoloEffect(u32* inputBufferL, u32* inputBufferR, u32* outputBufferL, u32* outputBufferR, int bufferSize, float rate, float depth)
+```
+### Wat doet deze functie?
+- Voegt een tremolo-effect toe door de amplitude snel te laten fluctueren.
+- Een sinus-LFO moduleert de amplitude tussen 1 - depth en 1 + depth.
+- Hierdoor krijgt het geluid een trillend, golvend effect.
+
+### Parameters
+- inputBufferL, inputBufferR: originele audio samples.
+- outputBufferL, outputBufferR: audio samples na het tremolo-effect.
+- bufferSize: aantal samples.
+- rate: frequentie van de amplitude-modulatie.
+- depth: sterkte van de modulatie.
