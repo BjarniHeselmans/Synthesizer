@@ -72,11 +72,13 @@ Via registers I2S_DATA_RX_L_REG en I2S_DATA_RX_R_REG wordt de binnenkomende audi
 - 4 → PacManSoundEffect: past het Pac-Man geluidseffect toe.
 
 - 8 → TremoloEffect: creëert een tremolo-effect op het geluid.
+
 Indien er geen knop is ingedrukt controleren we de switches:
 
 - 1 → PulsatingTriangleWave: creëert een pulserende driehoekgolf op het geluid.
 
 - 2 → RisingLaserSound: creëert elektronisch "whoop" of "sweep" geluid, de frequentie stijgt snel, dit herhaalt zich.
+
 Indien er niks wordt ingegeven, wordt het signaal stopgezet.
 
 5. Schrijf de verwerkte audio data terug naar de output registers
