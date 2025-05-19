@@ -72,7 +72,12 @@ Via registers I2S_DATA_RX_L_REG en I2S_DATA_RX_R_REG wordt de binnenkomende audi
 - 4 → PacManSoundEffect: past het Pac-Man geluidseffect toe.
 
 - 8 → TremoloEffect: creëert een tremolo-effect op het geluid.
-Bij geen knop ingedrukt wordt het signaal ongefilterd doorgezet.
+Indien er geen knop is ingedrukt controleren we de switches:
+
+- 1 → PulsatingTriangleWave: creëert een pulserende driehoekgolf op het geluid.
+
+- 2 → RisingLaserSound: creëert elektronisch "whoop" of "sweep" geluid, de frequentie stijgt snel, dit herhaalt zich.
+Indien er niks wordt ingegeven, wordt het signaal stopgezet.
 
 5. Schrijf de verwerkte audio data terug naar de output registers
 Via I2S_DATA_TX_L_REG en I2S_DATA_TX_R_REG wordt de output gestuurd naar de audio hardware.
@@ -164,3 +169,29 @@ void TremoloEffect(u32* inputBufferL, u32* inputBufferR, u32* outputBufferL, u32
 - bufferSize: aantal samples.
 - rate: frequentie van de amplitude-modulatie.
 - depth: sterkte van de modulatie.
+
+## 6. PulsatingTriangleWave
+```c
+void PulsatingTriangleWave(u32* outputBufferL, u32* outputBufferR, int bufferSize)
+```
+### Wat doet deze functie?
+- Genereert een driehoeksgolf met een constante toonhoogte van 440 Hz.
+- De amplitude van de golf pulseert met een lage frequentie (bijv. 2 Hz), wat zorgt voor een ritmisch op en neer gaan van het volume.
+- Het resultaat is een zuivere toon die "ademt" of langzaam in- en uitfadeert.
+
+### Parameters
+- outputBufferL, outputBufferR: buffers waarin de gegenereerde audio wordt opgeslagen (links en rechts).
+- bufferSize: aantal audio-samples dat gegenereerd moet worden.
+
+## 7. RisingLaserSound
+```c
+void RisingLaserSound(u32* outputBufferL, u32* outputBufferR, int bufferSize)
+```
+### Wat doet deze functie?
+- Genereert een elektronisch geluid met een stijgende toonhoogte.
+- De frequentie begint bij 300 Hz en stijgt snel naar 2000 Hz, waarna deze reset.
+- Het resultaat is een herhalend, opwaarts glijdend geluid zoals een laser- of sci-fi sweep.
+
+### Parameters
+- outputBufferL, outputBufferR: buffers voor de gegenereerde audio in het linker- en rechterkanaal.
+- bufferSize: aantal samples dat moet worden gegenereerd.
