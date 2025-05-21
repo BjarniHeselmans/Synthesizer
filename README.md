@@ -77,7 +77,7 @@ Bij geen input wordt output op nul gezet.
 6. Console-uitvoer: xil_printf toont welk effect actief is voor debugging.
 
 ### 3. Uitleg van Audio-Effect Functies
-1. PacManSoundEffect
+#### 1. PacManSoundEffect
 ```c
 void PacManSoundEffect(u32* inputBufferL, u32* inputBufferR, u32* outputBufferL, u32* outputBufferR, int bufferSize)
 ```
@@ -87,7 +87,7 @@ void PacManSoundEffect(u32* inputBufferL, u32* inputBufferR, u32* outputBufferL,
 
 - Inputbuffers worden genegeerd.
 
-2. ChorusEffect
+#### 2. ChorusEffect
 ```c
 void ChorusEffect(u32* inputBufferL, u32* inputBufferR, u32* outputBufferL, u32* outputBufferR, int bufferSize, float rate, float depth, float delayTime)
 ```
@@ -95,7 +95,7 @@ void ChorusEffect(u32* inputBufferL, u32* inputBufferR, u32* outputBufferL, u32*
 
 - Delay en amplitude variëren, wat resulteert in een voller, rijker geluid.
 
-3. SpacePhaserEffect
+#### 3. SpacePhaserEffect
 ```c
 void SpacePhaserEffect(u32* inputBufferL, u32* inputBufferR, u32* outputBufferL, u32* outputBufferR, int bufferSize, float rate, float depth)
 ```
@@ -103,7 +103,7 @@ void SpacePhaserEffect(u32* inputBufferL, u32* inputBufferR, u32* outputBufferL,
 
 - Linker- en rechterkanaal staan 180 graden uit fase voor stereo-effect.
 
-4. GeneratePianoTone
+#### 4. GeneratePianoTone
 ```c
 void GeneratePianoTone(u32* outputBufferL, u32* outputBufferR, int bufferSize)
 ```
@@ -111,7 +111,7 @@ void GeneratePianoTone(u32* outputBufferL, u32* outputBufferR, int bufferSize)
 
 - Per sample wordt een sinuswaarde berekend en omgezet naar 32-bit PCM.
 
-5. TremoloEffect
+#### 5. TremoloEffect
 ```c
 void TremoloEffect(u32* inputBufferL, u32* inputBufferR, u32* outputBufferL, u32* outputBufferR, int bufferSize, float rate, float depth)
 ```
@@ -119,7 +119,7 @@ void TremoloEffect(u32* inputBufferL, u32* inputBufferR, u32* outputBufferL, u32
 
 - Modulatie tussen 1 - depth en 1 + depth.
 
-6. PulsatingTriangleWave
+#### 6. PulsatingTriangleWave
 ```c
 void PulsatingTriangleWave(u32* outputBufferL, u32* outputBufferR, int bufferSize)
 ```
@@ -127,7 +127,7 @@ void PulsatingTriangleWave(u32* outputBufferL, u32* outputBufferR, int bufferSiz
 
 - Creëert een ademend effect.
 
-7. RisingLaserSound
+#### 7. RisingLaserSound
 ```c
 void RisingLaserSound(u32* outputBufferL, u32* outputBufferR, int bufferSize)
 ```
